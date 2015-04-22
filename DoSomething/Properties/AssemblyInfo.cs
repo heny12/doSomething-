@@ -11,7 +11,7 @@ using Android.App;
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("")]
 [assembly: AssemblyCopyright ("Smyth")]
-[assembly: AssemblyTrademark ("")]
+[assembly: AssemblyTrademark ("Henry")]
 [assembly: AssemblyCulture ("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".

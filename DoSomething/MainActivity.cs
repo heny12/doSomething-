@@ -24,7 +24,7 @@ namespace DoSomething
 			base.OnCreate (bundle);
 
 			// Set our view from the "main" layout resource
-			SetContentView (Resource.Layout.Main);
+			SetContentView (Resource.Layout.Login);
 
 			// Get our button from the layout resource,
 			// and attach an event to it
@@ -61,6 +61,7 @@ namespace DoSomething
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
 				String alert = string.Format("you are now logged in - {0}", user.UserId);
 				Toast.MakeText(this, alert, ToastLength.Long).Show();
+				SetContentView (Resource.Layout.Main);
 			}
 			catch (Exception ex)
 			{
