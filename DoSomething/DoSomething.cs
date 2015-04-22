@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Xamarin.Forms;
 
 namespace DoSomething
@@ -24,7 +23,7 @@ namespace DoSomething
 
 		protected override void OnStart ()
 		{
-			// Handle when your app starts
+
 		}
 
 		protected override void OnSleep ()
