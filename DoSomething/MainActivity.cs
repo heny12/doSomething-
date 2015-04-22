@@ -6,15 +6,18 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.WindowsAzure.MobileServices;
+using System.Threading.Tasks;
 
 namespace DoSomething
 {
 	[Activity (Label = "DoSomething", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
+		private MobileServiceUser user;
+		private MobileServiceClient client;
 
-		protected override void OnCreate (Bundle bundle)
+		protected override async void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
@@ -24,10 +27,23 @@ namespace DoSomething
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button> (Resource.Id.myButton);
+			await Authenticate();
 			
-			button.Click += delegate {
-				button.Text = string.Format ("{0} clicks!", count++);
-			};
+
+		}
+			
+		private async Task Authenticate()
+		{
+			try
+			{
+				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
+				String alert = string.Format("you are now logged in - {0}", user.UserId);
+				Toast.MakeText(this, alert, ToastLength.Long);
+			}
+			catch (Exception ex)
+			{
+				Toast.MakeText(this, "Authentication failed", ToastLength.Long);
+			}
 		}
 	}
 }
