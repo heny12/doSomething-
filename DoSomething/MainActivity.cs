@@ -33,15 +33,24 @@ namespace DoSomething
 			{
 				// Create the Mobile Service Client instance, using the provided
 				// Mobile Service URL and key
+				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
+				String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
+				//client = new MobileServiceClient(
+					//Resource.String.appURL.ToString(),
+					//Resource.String.AzureKey.ToString());
 				client = new MobileServiceClient(
-					Resource.String.appURL.ToString(),
-					Resource.String.AzureKey.ToString());
+					url,
+					appKey);
 
 				await Authenticate();
 			}
-			catch 
-			{
-				throw new Exception ("oops");
+            catch (Java.Net.MalformedURLException) 
+            {
+				Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
+			} 
+            catch (Exception e) 
+            {
+				Toast.MakeText(this, e.Message, ToastLength.Long).Show();
 			}
 		}
 			
@@ -51,11 +60,11 @@ namespace DoSomething
 			{
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
 				String alert = string.Format("you are now logged in - {0}", user.UserId);
-				Toast.MakeText(this, alert, ToastLength.Long);
+				Toast.MakeText(this, alert, ToastLength.Long).Show();
 			}
 			catch (Exception ex)
 			{
-				Toast.MakeText(this, "Authentication failed", ToastLength.Long);
+				Toast.MakeText(this, "Authentication failed", ToastLength.Long).Show();
 			}
 		}
 	}
