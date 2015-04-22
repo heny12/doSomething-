@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("ds_android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("DoSomething.Resource", IsApplication=true)]
 
-namespace ds_android
+namespace DoSomething
 {
 	
 	
@@ -91,6 +91,12 @@ namespace ds_android
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f040003
+			public const int AzureKey = 2130968579;
+			
+			// aapt resource value: 0x7f040002
+			public const int appURL = 2130968578;
 			
 			// aapt resource value: 0x7f040001
 			public const int app_name = 2130968577;
