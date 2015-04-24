@@ -19,41 +19,45 @@ namespace DoSomething
 		private MobileServiceUser user;
 		private MobileServiceClient client;
 
-		protected override async void OnCreate (Bundle bundle)
+		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
-			// Set our view from the "main" layout resource
+			// Set our view from the "login" layout resource
 			SetContentView (Resource.Layout.Login);
 
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			try 
+			// Gets button for login
+			Button LoginButton = FindViewById<Button> (Resource.Id.LoginButton);
+
+			// On click of the login button authenticate the user or prompt them to login via FB
+			LoginButton.Click += async (object sender, EventArgs a) =>
 			{
-				// Create the Mobile Service Client instance, using the provided
-				// Mobile Service URL and key
-				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
-				String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
-				//client = new MobileServiceClient(
+
+				try 
+				{
+					// Create the Mobile Service Client instance, using the provided
+					// Mobile Service URL and key
+					String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
+					String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
+					//client = new MobileServiceClient(
 					//Resource.String.appURL.ToString(),
 					//Resource.String.AzureKey.ToString());
-				client = new MobileServiceClient(
-					url,
-					appKey);
+					client = new MobileServiceClient(url,appKey);
+					await Authenticate();
+				}
+				catch (Java.Net.MalformedURLException) 
+				{
+					Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
+				} 
+				catch (Exception e) 
+				{
+					Toast.MakeText(this, e.Message, ToastLength.Long).Show();
+				}
 
-				await Authenticate();
-			}
-            catch (Java.Net.MalformedURLException) 
-            {
-				Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
-			} 
-            catch (Exception e) 
-            {
-				Toast.MakeText(this, e.Message, ToastLength.Long).Show();
-			}
+			};
+
 		}
-			
+
 		private async Task Authenticate()
 		{
 			try

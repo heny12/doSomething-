@@ -3,18 +3,26 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffff3d2e">
+    android:background="#ff272f32">
     <TextView
         android:text="Do Something!"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="128.8dp"
+        android:layout_height="75.9dp"
         android:id="@+id/textView1"
         android:layout_marginBottom="53.9dp"
-        android:textScaleX="1" />
+        android:gravity="center"
+        android:textScaleX="1"
+        android:layout_marginTop="100dp"
+        android:textColor="#ffdaeaef"
+        android:layout_width="300dp"
+        android:layout_marginLeft="45dp" />
     <Button
         android:text="Log In"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1" />
+        android:id="@+id/LoginButton"
+        android:gravity="center"
+        android:layout_marginLeft="45sp"
+        android:layout_width="300dp"
+        android:background="#fedaeaef"
+        android:textColor="#ffff3d2e" />
 </LinearLayout>
