@@ -6,11 +6,9 @@
     android:id="@+id/linearLayout1"
     android:minWidth="25px"
     android:minHeight="25px">
-    <TextView
-        android:text="Hell0 w0rld!"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+    <Button
+        android:text="Logout Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1"
-        android:layout_marginTop="200dp" />
+        android:id="@+id/LogoutButton" />
 </LinearLayout>

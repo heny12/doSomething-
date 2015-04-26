@@ -26,8 +26,30 @@ namespace DoSomething
 			// Set our view from the "login" layout resource
 			SetContentView (Resource.Layout.Login);
 
+			// Gets button for logout
+			Button LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton);
+
 			// Gets button for login
 			Button LoginButton = FindViewById<Button> (Resource.Id.LoginButton);
+
+			// On click of the logout button signout the user
+			LogoutButton.Click += (object sender, EventArgs a) =>
+			{
+
+				try 
+				{
+					Logout();
+				}
+				catch (Java.Net.MalformedURLException) 
+				{
+					Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
+				} 
+				catch (Exception e) 
+				{
+					Toast.MakeText(this, e.Message, ToastLength.Long).Show();
+				}
+
+			};
 
 			// On click of the login button authenticate the user or prompt them to login via FB
 			LoginButton.Click += async (object sender, EventArgs a) =>
@@ -63,13 +85,27 @@ namespace DoSomething
 			try
 			{
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
-				String alert = string.Format("you are now logged in - {0}", user.UserId);
+				String alert = string.Format("Welcome Henry, you're the best, your user ID is {0}", user.UserId);
 				Toast.MakeText(this, alert, ToastLength.Long).Show();
 				SetContentView (Resource.Layout.Main);
 			}
 			catch (Exception ex)
 			{
 				Toast.MakeText(this, "Authentication failed", ToastLength.Long).Show();
+			}
+		}
+		private async Task Logout()
+		{
+			try
+			{
+				client.Logout ();
+				String alert = string.Format("Successfully logged out");
+				Toast.MakeText(this, alert, ToastLength.Long).Show();
+				SetContentView (Resource.Layout.Login);
+			}
+			catch (Exception ex)
+			{
+				Toast.MakeText(this, "Logout failed", ToastLength.Long).Show();
 			}
 		}
 	}
