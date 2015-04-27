@@ -62,7 +62,14 @@ namespace DoSomething
 				client = new MobileServiceClient(url,appKey); */
 				client = new MobileServiceClient("https://dosomething.azure-mobile.net/",
 					"SIZclmUxUGubaEXCuEXKkKjDlPxBfK77");
-				await Authenticate();
+				var success = await Authenticate();
+				if (success) {
+					var intent = new Intent(this, typeof(MapActivity));
+					StartActivity(intent);
+					//String alert = string.Format("Welcome now, you're the best, your user ID is {0}", user.UserId);
+					//Toast.MakeText(this, alert, ToastLength.Long).Show();
+				}
+
 			}
 			catch (Java.Net.MalformedURLException) 
 			{
@@ -75,21 +82,21 @@ namespace DoSomething
 
 		}
 
-		private async Task Authenticate()
+		private async Task<bool> Authenticate()
 		{
 			try
 			{
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
 				String alert = string.Format("Welcome Henry, you're the best, your user ID is {0}", user.UserId);
 				Toast.MakeText(this, alert, ToastLength.Long).Show();
-				var intent = new Intent(this, typeof(MapActivity));
-				StartActivity(intent);
+				return true;
 
 				//SetContentView (Resource.Layout.Main);
 			}
 			catch (Exception ex)
 			{
 				Toast.MakeText(this, "Authentication failed", ToastLength.Long).Show();
+				return false;
 			}
 		}
 
