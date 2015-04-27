@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:id="@+id/linearLayout1"
     android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:background="#ff272f32">
     <Button
         android:text="Logout Button"
         android:layout_width="match_parent"

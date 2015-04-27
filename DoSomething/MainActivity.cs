@@ -18,65 +18,58 @@ namespace DoSomething
 	{
 		private MobileServiceUser user;
 		private MobileServiceClient client;
+		public Button LogoutButton;
+		public Button LoginButton;
+		//LayoutInflater inflater;
+		//View main;
+		//View login;
 
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+			ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
-			// Set our view from the "login" layout resource
-			SetContentView (Resource.Layout.Login);
-
+			//main = inflater.Inflate (Resource.Layout.Main, null);
+			//login = inflater.Inflate (Resource.Layout.Login, null);
+			SetContentView (Resource.Layout.Main);
 			// Gets button for logout
-			Button LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton);
-
-			// Gets button for login
-			Button LoginButton = FindViewById<Button> (Resource.Id.LoginButton);
-
+			LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton);
 			// On click of the logout button signout the user
 			LogoutButton.Click += (object sender, EventArgs a) =>
 			{
-
-				try 
-				{
-					Logout();
-				}
-				catch (Java.Net.MalformedURLException) 
-				{
-					Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
-				} 
-				catch (Exception e) 
-				{
-					Toast.MakeText(this, e.Message, ToastLength.Long).Show();
-				}
-
+				LogoutClick ();
 			};
 
+			// Set our view from the "login" layout resource
+			SetContentView (Resource.Layout.Login);
+			// Gets button for login
+			LoginButton = FindViewById<Button> (Resource.Id.LoginButton);
 			// On click of the login button authenticate the user or prompt them to login via FB
-			LoginButton.Click += async (object sender, EventArgs a) =>
-			{
-
-				try 
-				{
-					// Create the Mobile Service Client instance, using the provided
-					// Mobile Service URL and key
-					String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
-					String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
-					//client = new MobileServiceClient(
-					//Resource.String.appURL.ToString(),
-					//Resource.String.AzureKey.ToString());
-					client = new MobileServiceClient(url,appKey);
-					await Authenticate();
-				}
-				catch (Java.Net.MalformedURLException) 
-				{
-					Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
-				} 
-				catch (Exception e) 
-				{
-					Toast.MakeText(this, e.Message, ToastLength.Long).Show();
-				}
-
+			LoginButton.Click += async (object sender, EventArgs a) => {
+				LoginClick ();
 			};
+		}
+		public void LoginClick() {
+			try 
+			{
+				// Create the Mobile Service Client instance, using the provided
+				// Mobile Service URL and key
+				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
+				String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
+				//client = new MobileServiceClient(
+				//Resource.String.appURL.ToString(),
+				//Resource.String.AzureKey.ToString());
+				client = new MobileServiceClient(url,appKey);
+				Authenticate();
+			}
+			catch (Java.Net.MalformedURLException) 
+			{
+				Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
+			} 
+			catch (Exception e) 
+			{
+				Toast.MakeText(this, e.Message, ToastLength.Long).Show();
+			}
 
 		}
 
@@ -94,6 +87,24 @@ namespace DoSomething
 				Toast.MakeText(this, "Authentication failed", ToastLength.Long).Show();
 			}
 		}
+
+		public async void LogoutClick() {
+
+			try 
+			{
+				await Logout();
+			}
+			catch (Java.Net.MalformedURLException) 
+			{
+				Toast.MakeText(this, "URL Error", ToastLength.Long).Show();
+			} 
+			catch (Exception e) 
+			{
+				Toast.MakeText(this, e.Message, ToastLength.Long).Show();
+			}
+
+		}
+
 		private async Task Logout()
 		{
 			try
@@ -109,6 +120,7 @@ namespace DoSomething
 			}
 		}
 	}
+
 }
 
 

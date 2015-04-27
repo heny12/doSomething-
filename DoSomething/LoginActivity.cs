@@ -19,8 +19,8 @@ namespace DoSomething
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-
 		}
+	
 	}
 }
 
