@@ -87,7 +87,8 @@ namespace DoSomething
 			try
 			{
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
-				String alert = string.Format("Welcome Henry, you're the best, your user ID is {0}", user.UserId);
+				//String alert = string.Format("Welcome Henry, you're the best, your user ID is {0}", user.UserId);
+				String alert = "Welcome to Do Something!";
 				Toast.MakeText(this, alert, ToastLength.Long).Show();
 				return true;
 
