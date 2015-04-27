@@ -33,9 +33,9 @@ namespace DoSomething
 			//login = inflater.Inflate (Resource.Layout.Login, null);
 			SetContentView (Resource.Layout.Main);
 			// Gets button for logout
-			LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton);
+			LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton); //Goes in separate Activity
 			// On click of the logout button signout the user
-			LogoutButton.Click += (object sender, EventArgs a) =>
+			LogoutButton.Click += (object sender, EventArgs a) => //Goes in separate Activity
 			{
 				LogoutClick ();
 			};
@@ -43,24 +43,26 @@ namespace DoSomething
 			// Set our view from the "login" layout resource
 			SetContentView (Resource.Layout.Login);
 			// Gets button for login
-			LoginButton = FindViewById<Button> (Resource.Id.LoginButton);
+			LoginButton = FindViewById<Button> (Resource.Id.LoginButton); //Either this becomes login activity, or we move this to different activity
 			// On click of the login button authenticate the user or prompt them to login via FB
-			LoginButton.Click += async (object sender, EventArgs a) => {
-				LoginClick ();
-			};
+			LoginButton.Click += async (object sender, EventArgs a) => await LoginClick ();
 		}
-		public void LoginClick() {
+		/*
+		 * TODO: Login needs to be in a separate activity than main activity.  OR, login needs to be main activity, and we go to a new activity after logging in.
+		 * This will prevent the logout button from being a useless piece of shit.
+		*/
+		public async Task LoginClick() {
 			try 
 			{
 				// Create the Mobile Service Client instance, using the provided
 				// Mobile Service URL and key
-				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
+				/*
+				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/"; Old ass url and appkey.  On .NET backend.  Doesn't allow client directed authentication without shitty hacks.
 				String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
-				//client = new MobileServiceClient(
-				//Resource.String.appURL.ToString(),
-				//Resource.String.AzureKey.ToString());
-				client = new MobileServiceClient(url,appKey);
-				Authenticate();
+				client = new MobileServiceClient(url,appKey); */
+				client = new MobileServiceClient("https://dosomething.azure-mobile.net/",
+					"SIZclmUxUGubaEXCuEXKkKjDlPxBfK77");
+				await Authenticate();
 			}
 			catch (Java.Net.MalformedURLException) 
 			{
@@ -80,7 +82,10 @@ namespace DoSomething
 				user = await client.LoginAsync(this, MobileServiceAuthenticationProvider.Facebook);
 				String alert = string.Format("Welcome Henry, you're the best, your user ID is {0}", user.UserId);
 				Toast.MakeText(this, alert, ToastLength.Long).Show();
-				SetContentView (Resource.Layout.Main);
+				var intent = new Intent(this, typeof(MapActivity));
+				StartActivity(intent);
+
+				//SetContentView (Resource.Layout.Main);
 			}
 			catch (Exception ex)
 			{
@@ -88,6 +93,10 @@ namespace DoSomething
 			}
 		}
 
+		/*
+		 *TODO: All of the logout Activity stuff needs to be moved to the post-login screen (tabbed view, map, etc)
+		 *All this code gets its shit overwritten when we change layouts, so we need to move this to a different activity.
+		*/
 		public async void LogoutClick() {
 
 			try 
