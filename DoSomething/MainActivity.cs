@@ -33,6 +33,7 @@ namespace DoSomething
 			{
 				// Create the Mobile Service Client instance, using the provided
 				// Mobile Service URL and key
+				//String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
 				String url = "https://dosomethingrg12d746eb69a7445c7b98ab26c9fb63a5b.azurewebsites.net/";
 				String appKey = "zAIiBPQyGNCjAugFTPwHsoyyLeoveG53"; 
 				//client = new MobileServiceClient(
