@@ -46,6 +46,10 @@ namespace DoSomething
 			
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
+
+			public static int tab1_icon = 532535;
+
+			public static int tab2_icon = 524532;
 			
 			static Drawable()
 			{
@@ -115,6 +119,10 @@ namespace DoSomething
 			
 			// aapt resource value: 0x7f040000
 			public const int hello = 2130968576;
+
+			public static int tab1_text = 3219850;
+
+			public static int tab2_text = 439345;
 			
 			static String()
 			{

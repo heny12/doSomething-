@@ -27,11 +27,28 @@ namespace DoSomething
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
 
 			//main = inflater.Inflate (Resource.Layout.Main, null);
 			//login = inflater.Inflate (Resource.Layout.Login, null);
 			SetContentView (Resource.Layout.Main);
+
+			ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+			ActionBar.Tab tab = ActionBar.NewTab();
+			tab.SetText(Resources.GetString(Resource.String.tab1_text));
+			tab.SetIcon(Resource.Drawable.tab1_icon);
+			tab.TabSelected += (sender, args) => {
+				// Do something when tab is selected
+			};
+				ActionBar.AddTab(tab);
+
+			tab = ActionBar.NewTab();
+			tab.SetText(Resources.GetString(Resource.String.tab2_text));
+			tab.SetIcon(Resource.Drawable.tab2_icon);
+			tab.TabSelected += (sender, args) => {
+				// Do something when tab is selected
+			};
+				ActionBar.AddTab(tab);
+
 			// Gets button for logout
 			LogoutButton = FindViewById<Button> (Resource.Id.LogoutButton);
 			// On click of the logout button signout the user
